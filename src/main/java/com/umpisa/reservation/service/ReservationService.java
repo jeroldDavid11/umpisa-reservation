@@ -3,6 +3,8 @@ package com.umpisa.reservation.service;
 import com.umpisa.reservation.dao.ReservationDAO;
 import com.umpisa.reservation.dto.ReservationRequest;
 import com.umpisa.reservation.model.Reservation;
+
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -69,6 +71,7 @@ public class ReservationService {
         System.out.println("Sent EMAIL: " + message + " for Reservation ID: " + reservation.getId());
     }
 
+    @Scheduled(cron = "0 0 0/4 * * ?")  // Every 4 hours at the top of the hour
     public void sendReminder() {
         List<Reservation> upcomingReservations = reservationDAO.getReservationsByEmail("")
                 .stream()
